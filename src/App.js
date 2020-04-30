@@ -179,6 +179,7 @@ function App() {
             width={"100vw"}
             height={"62vw"}
             chartType="GeoChart"
+            chartLanguage="pl"
             data={data}
             options={{
               region: "PL",
