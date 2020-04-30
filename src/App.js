@@ -294,15 +294,20 @@ function App() {
                 <tbody>
                   <tr>
                     <td>Liczba złożonych wniosków</td>
-                    <td>{provinceData[0][1]}</td>
+                    <td>{provinceData[0][1].toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Liczba dofinansowanych projektów (E+& PO WER)</td>
-                    <td>{provinceData[0][2]}</td>
+                    <td>{provinceData[0][2].toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Dofinansowanie (E+ & PO WER)</td>
-                    <td>{provinceData[0][3]} EUR</td>
+                    <td>
+                      {provinceData[0][3].toLocaleString("pl-PL", {
+                        style: "currency",
+                        currency: "EUR",
+                      })}{" "}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -315,7 +320,7 @@ function App() {
                   {provinceData[0][4].map((single) => (
                     <tr>
                       <td>{single.A}</td>
-                      <td>{single.B}</td>
+                      <td>{single.B.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -331,7 +336,7 @@ function App() {
                   {provinceData[0][5].map((single) => (
                     <tr>
                       <td>{single.A}</td>
-                      <td>{single.B}</td>
+                      <td>{single.B.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -347,7 +352,7 @@ function App() {
                   {provinceData[0][6].map((single) => (
                     <tr>
                       <td>{single.A}</td>
-                      <td>{single.B}</td>
+                      <td>{single.B.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
