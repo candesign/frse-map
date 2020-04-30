@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FRSE</title>
+  </head>
+
+  <script>
+    async function fetchTest() {
+      let response = await fetch("./currentId");
+      let responseText = await response.text();
+
+      document.getElementById("result").innerHTML = parseInt(responseText) - 1;
+    }
+
+    (async () => {
+      await fetchTest();
+    })();
+  </script>
+
+  <body>
+    <p>Plik JSON wygenerowany. Dziękujemy. Strona została zaktualizowana.</p>
+    <p>ID wysłanego pliku to: <span id="result"></span></p>
+  </body>
+</html>

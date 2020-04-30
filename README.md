@@ -1,68 +1,45 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FRSE Mapping
 
-## Available Scripts
+Proszę o zapoznanie się z tym krótkim dokumentem. Powinien odpowiedzieć on na główne pytania związane z działaniem aplikacji.
 
-In the project directory, you can run:
+## ADRESY TESTOWE
 
-### `npm start`
+Frontend: https://stronypreview.pl
+Backend: https://xlsfrse.adpdev.click
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Obecnie backend jest hostowany na naszej instancji AWS EC2. Wiąże się to jednak z dodatkowymi kosztami z naszej strony, dlatego chciałbym prosić o przeniesienie go do siebie w ciągu najbliższych kilku miesięcy.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## DZIAŁANIE APLIKACJI
 
-### `npm test`
+- Wchodzimy w backend i wgrywamy odpowiednio przygotowany plik Excela z danymi.
+- Generujemy plik JSON. Wyświetli się nam jego ID.
+- Na frontendzie wyświetla się domyślnie zawsze plik JSON o najwyższym ID. Można też z łatwością podejrzeć poprzednie pliki, ustawiając parametr URL, np.: https://stronypreview.pl/?id=6
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## FRONTEND
 
-### `npm run build`
+Frontend zbudowany jest w oparciu o bibliotekę React. Główny skrypt znajduje się w pliku ./src/App.js. Wykonuje on kolejno następujące zadania:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Pobiera wybrany plik JSON z backendu.
+- Tworzy globalny obiekt z danymi, poprawiając przy okazji niektóre błędy i literówki z pliku JSON.
+- Konfiguruje mapę i łączy ją z danymi.
+- Wyświetla mapę i dane w tabeli.
+- Zmienia wyświetlany przedział danych w oparciu o wybór uzytkownika.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Frontend mozna edytować localhoście, używając w terminalu komendy `npm start`. Szczegóły edycji aplikacji Reacta są przystępnie opisane w jego dokumentacji oraz dokumentacji Create React App.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Po zakończeniu wprowadzania zmian, należy użyć komendy `npm run-script build`. Utworzony zostanie folder _build_, którego zawartość można wrzucić na wybrany serwer. Domyślnie aplikacja powinna znajdować się w katalogu nadrzędnym, czyli np. pod adresem https://testowyadres.pl, a nie https://testowyadres.pl/mapa/. Konieczny jest także działający certyfikat SSL.
 
-### `npm run eject`
+## BACKEND
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Backend jest bardzo prosty i działa na NodeJS. Zwracam uwagę, że NodeJS nie jest wspierany na wielu hostingach współdzielonych, np. home.pl.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Główny skrypt znajduje się w pliku index.js. W katalogu public zapisywane są: najnowszy plik Excela, wszystkie wygenerowane pliki JSON oraz plik id.txt z informacją o ID, które zostanie przydzielone kolejnemu plikowi JSON.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Serwer najlepiej uruchomić z użyciem aplikacji typu nodemon, dzięki czemu będzie on działał bez przerwy.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Endpointy:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- /download/ - pobiera najnowszy plik JSON
+- /download/2/ - pobiera plik JSON o ID równym 2
+- /json/ – generuje plik JSON z aktualnie znajdującego się na serwerze pliku Excela
+- /currentId/ – podgląd zawartości pliku id.txt
